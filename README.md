@@ -1,3 +1,5 @@
+# A TPA3116 & Arduino powered Amp
+
 ## Intro
 
 Browsing websites like Aliexpress, it is very easy to find a ton of very cheap, small class-D amplifiers with good power ratings - from sub 0.50€, 3W-capable boards based on a `PAM8403` IC, to 500W `IRS2092S`-based amps for 8€.
