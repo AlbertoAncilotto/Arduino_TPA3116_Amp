@@ -89,7 +89,7 @@ Ok, so last thing missing is an anclosure for the electronics. I desigend it in 
 ![Image](images/frame_rend.png)
 ![Image](images/cover_rend.png)
 
-The frame was printed in marble PLA, and the external cover in wood-filled filament. Printing took around 5 hours, with the majority of the time required by the outer frame.
+The frame was printed in marble PLA, and the external cover in wood-filled filament. Printing took around 5 hours, with the majority of the time required by the outer frame. The files for printing are in the GitHub repository for the project.
 
 ![Image](images/frame_nobg.png)
 ![Image](images/cover_nobg.png)
@@ -98,10 +98,24 @@ After a bit of post processing, sanding and waxing, the enclosure goes from look
 
 ![Image](images/assembled_nobg.png)
 
-## Software
+# Software
+
+I'm using VSCode with the PlatformIO extension to write all my code for embedded platforms. Seriously, while leaving the Arduino IDE might look scary, it will look unusable after giving Pio a try. Also, it provides a very easy way to compile and debug code for a huge variety of platforms, like STM32 MCUs, ESP boards, bluetooth-enabled nRF MCUs and many more... no more `Serial.print("here")` for debugging Arduino code, or messing with ugly Eclipse skinned proprietary IDEs.
+
+The code itself is pretty simple, and split into 3 files:
+
+- main.cpp, with the main application loop - read the current, voltage and temperature, apply a mean filter on current (as it varies very rapidly), and display to the display
+
+- Segm.cpp, the driver for the seven segment display implementing the controlling strategy defined above. It implements functions to light up a single segment, show digits and a short test routine to check that the display is hooked up and working properly
+
+- Sense.cpp, with the three functions used to obtain the current, temperature and voltage from three analog readings 
+
+# End Result
 
 
-
+![Image](images/final_nobg(1).png)
+![Image](images/final_nobg(2).png)
+![Image](images/final_nobg(3).png)
 
 
 
