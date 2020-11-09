@@ -2,4 +2,5 @@
 theme: jekyll-theme-tactile
 layout: post
 title: A TPA3116 & Arduino powered Amp
+show_downloads: true
 ---
