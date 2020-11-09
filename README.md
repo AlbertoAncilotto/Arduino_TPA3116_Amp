@@ -1,6 +1,6 @@
 # A TPA3116 & Arduino powered Amp
 
-![Image](images\complete_nobg.png)
+![Image](images/complete_nobg.png)
 ## Intro
 
 Browsing websites like Aliexpress, it is very easy to find a ton of very cheap, small class-D amplifiers with good power ratings - from sub 0.50€, 3W-capable boards based on a `PAM8403` IC, to 500W `IRS2092S`-based amps for 8€.
@@ -17,7 +17,7 @@ For power monitoring, we need a way of measuring input current (and voltage) to 
 
 We also need a way of displaying that information - while looking though a pile of old electronic boards I found a 4 digits 7-segment display which would be perfect for the job. The display only has 7 connectors, so a bit of reverse engineering will be needed to make it work.
 
-![Image](images\seven_segm.jpg)
+![Image](images/seven_segm.jpg)
 
 We also don't want to have just a mess of wires dangling from the amp, so i will design a 3D printed enclosure. As this could cause some problems with air flow on the amp heatsink, I chose to add temperature sensing with a PTC thermistor to the board, and display also this information of the screen.
 
@@ -38,7 +38,7 @@ For current sensing I chose to use a single shunt resistor, without a current se
 
 As you can see from the picture above, the display I chose only has 7 connections to drive the icons and 4 7-segment digits. By soldering a resistor to each pin and poking around I found that this is not the usual common anode or cathode display - instead almost each combination of the pins lit up a different segment. To make things more complex, _switching the polarity_ between two pins lit up different segments. I started by soldering resistors to all pins of the display
 
-![Image](images\7_segm_res.jpg)
+![Image](images/7_segm_res.jpg)
 
 Then, helped by an Excel spreadsheet, I mapped each led segment of each display digit to the correct pair of pins (e.g. segment A of the first digit means positive on pin 1 and negative on pin 4).
 
@@ -50,7 +50,7 @@ More in detail, knowing the correct sequence of segments, we need to:
 3. Wait for a small amount of time (500us will result in a refresh time of ~14ms when we need to display four 8's, so a minimum refresh rate of ~71 frames per second, enough for the human eye to do its thing and perceive a fixed image)
 4. Start again for the next pair of pins
 
-![Image](images\7_segm_working.jpg)
+![Image](images/7_segm_working.jpg)
 
 # Temperature sensing
 
@@ -67,7 +67,7 @@ While the last option is the one that sounds the worst, in our case it's actuall
 
 By plotting some output voltages at different heatsink temperatures we obtain an almost linear relation:
 
-![Image](images\ptc_calib1.png)
+![Image](images/ptc_calib1.png)
 
 So we'll use this relation to estimate the current temperature (this is obtained by using the PTC in a voltage divider with a 5.1K resistor to gnd).
 
@@ -78,7 +78,7 @@ While powering the system seems trivial, there are a couple of points to address
 
 - The `AMS1117` LDO that provides the 5V to the arduino can only be supplied with up to 15V. We will cascade it after another linear regulator in order to allow for higher input voltages and split the power dissipation. In particular, I used an `LM317` before the Vin pins of the Arduino, set to output ~10V, in order to split the power dissipation between the 2 regulators as 2/3 on the `LM317` (the TO220 package is a lot more efficient at dissipating power with respect to the SOT package of the integrated LDO), and 1/3 on the `AMS1117`
 
-![Image](images\full_internal.jpg)
+![Image](images/full_internal.jpg)
 
 The above picture shows the internals of the amp, with the arduino on the right side, the amp in the center and right and left volume potentiometers, together with the input 5mm jack connected to the outside frame.
 
@@ -86,17 +86,17 @@ The above picture shows the internals of the amp, with the arduino on the right 
 
 Ok, so last thing missing is an anclosure for the electronics. I desigend it in Fusion360 as 2 separate pieces - a frame where electronics are mounted (you see it in the previous image) and a cover for the electronics.
 
-![Image](images\frame_rend.png)
-![Image](images\cover_rend.png)
+![Image](images/frame_rend.png)
+![Image](images/cover_rend.png)
 
 The frame was printed in marble PLA, and the external cover in wood-filled filament. Printing took around 5 hours, with the majority of the time required by the outer frame.
 
-![Image](images\frame_nobg.png)
-![Image](images\cover_nobg.png)
+![Image](images/frame_nobg.png)
+![Image](images/cover_nobg.png)
 
 After a bit of post processing, sanding and waxing, the enclosure goes from looking like a quick prototype to almost wood like.
 
-![Image](images\assembled_nobg.png)
+![Image](images/assembled_nobg.png)
 
 ## Software
 
